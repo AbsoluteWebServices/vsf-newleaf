@@ -9,19 +9,19 @@ import {
 import {
   UseWarranty,
   UseWarrantyErrors,
-  Warranty,
+  Warranties,
   WarrantySearchParams
 } from '../types';
 
 export interface UseWarrantyFactoryParams extends FactoryParams{
-  search: (context: Context, params: WarrantySearchParams) => Promise<Warranty>;
+  search: (context: Context, params: WarrantySearchParams) => Promise<Warranties>;
 }
 
 export function useWarrantyFactory(
   factoryParams: UseWarrantyFactoryParams,
 ) {
   return function useWarranty(ssrKey = ' useWarranty'): UseWarranty {
-    const warranty: Ref<Warranty> = sharedRef<Warranty>({}, `useWarranty-warranty-${ssrKey}`);
+    const warranties: Ref<Warranties> = sharedRef<Warranties>({}, `useWarranty-warranty-${ssrKey}`);
     const loading: Ref<boolean> = sharedRef<boolean>(false, `useWarranty-loading-${ssrKey}`);
     const error: Ref<UseWarrantyErrors> = sharedRef({
       search: null,
@@ -34,7 +34,7 @@ export function useWarrantyFactory(
 
       try {
         loading.value = true;
-        warranty.value = await _factoryParams.search(params);
+        warranties.value = await _factoryParams.search(params);
         error.value.search = null;
       } catch (err: any) {
         error.value.search = err;
@@ -45,7 +45,7 @@ export function useWarrantyFactory(
     };
 
     return {
-      warranty: computed(() => warranty.value),
+      warranties: computed(() => warranties.value),
       loading: computed(() => loading.value),
       error: computed(() => error.value),
       search,

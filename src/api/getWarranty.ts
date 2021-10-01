@@ -1,26 +1,34 @@
-import { Context, Warranty, WarrantySearchParams } from '../types';
+import { Context, Warranties, WarrantySearchParams } from '../types';
 
 export default async (
   { config, client }: Context,
   params: WarrantySearchParams
-): Promise<Warranty> => {
+): Promise<Warranties> => {
   const { apiUrl } = config;
-  const { prodSku, prodDesc, prodPrice } = params;
-  const url = new URL(apiUrl);
+  const { products = [] } = params;
+  const warranties = {};
 
-  url.searchParams.set('prod_sku', prodSku);
-  url.searchParams.set('prod_desc', prodDesc);
-  url.searchParams.set('prod_price', prodPrice);
+  for (const product of products) {
+    const url = new URL(apiUrl);
 
-  try {
-    const response = await client.get(url.href);
+    url.searchParams.set('prod_sku', product.prodSku);
+    url.searchParams.set('prod_desc', product.prodDesc);
+    url.searchParams.set('prod_price', product.prodPrice);
 
-    if (response.status !== 200) {
-      throw response.data;
+    try {
+      const response = await client.get(url.href);
+
+      if (response.status !== 200) {
+        throw response.data;
+      }
+
+      if (response.data) {
+        warranties[product.prodSku] = response.data;
+      }
+    } catch (err: any) {
+      throw err;
     }
-
-    return response.data || {};
-  } catch (err: any) {
-    throw err;
   }
+
+  return warranties;
 }

@@ -1,6 +1,6 @@
 import { CustomQuery } from '@vue-storefront/core';
-import { Warranty, WarrantySearchParams } from './warranty';
+import { Warranties, WarrantySearchParams } from './warranty';
 
 export interface NewleafApiMethods {
-  getWarranty(params: WarrantySearchParams, customQuery?: CustomQuery): Promise<Warranty>;
+  getWarranty(params: WarrantySearchParams, customQuery?: CustomQuery): Promise<Warranties>;
 }
