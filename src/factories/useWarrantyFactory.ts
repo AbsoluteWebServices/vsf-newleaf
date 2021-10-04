@@ -11,7 +11,7 @@ import {
   UseWarrantyErrors,
   Warranties,
   WarrantySearchParams,
-  WarrantiesProducts
+  WarrantyProducts
 } from '../types';
 
 export interface UseWarrantyFactoryParams extends FactoryParams{
@@ -24,8 +24,8 @@ export function useWarrantyFactory(
   return function useWarranty(ssrKey = ' useWarranty'): UseWarranty {
     const warranties: Ref<Warranties> =
       sharedRef<Warranties>({}, `useWarranty-warranty-${ssrKey}`);
-    const warrantiesProducts: Ref<WarrantiesProducts> =
-      sharedRef<WarrantiesProducts>({}, `${ssrKey}-warrantiesProducts`);
+    const warrantyProducts: Ref<WarrantyProducts> =
+      sharedRef<WarrantyProducts>({}, `useWarranty-warrantyProducts-${ssrKey}`);
     const loading: Ref<boolean> = sharedRef<boolean>(false, `useWarranty-loading-${ssrKey}`);
     const error: Ref<UseWarrantyErrors> = sharedRef({
       search: null,
@@ -48,16 +48,16 @@ export function useWarrantyFactory(
       }
     };
 
-    const setWarrantiesProducts = (value: WarrantiesProducts) =>
-      (warrantiesProducts.value = value);
+    const setWarrantyProducts = (value: WarrantyProducts) =>
+      (warrantyProducts.value = value);
 
     return {
       warranties: computed(() => warranties.value),
-      warrantiesProducts: computed(() => warrantiesProducts.value),
+      warrantyProducts: computed(() => warrantyProducts.value),
       loading: computed(() => loading.value),
       error: computed(() => error.value),
       search,
-      setWarrantiesProducts,
+      setWarrantyProducts,
     };
   };
 }

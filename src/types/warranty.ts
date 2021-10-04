@@ -23,6 +23,6 @@ export interface Warranties {
   [key: string]: Warranty
 }
 
-export interface WarrantiesProducts {
+export interface WarrantyProducts {
   [key: string]: any
 }

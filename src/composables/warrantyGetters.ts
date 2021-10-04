@@ -1,6 +1,6 @@
-import { WarrantiesProducts } from '../types';
+import { WarrantyProducts } from '../types';
 
-export const getWarrantiesBySku = (products: WarrantiesProducts, sku: string) => products ? products[sku] : [];
+export const getWarrantiesBySku = (products: WarrantyProducts, sku: string) => products ? products[sku] : [];
 
 const warrantyGetters = {
   getWarrantiesBySku,

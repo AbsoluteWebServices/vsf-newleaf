@@ -1,5 +1,5 @@
 import { ComputedProperty } from '@vue-storefront/core';
-import { Warranties, WarrantySearchParams, WarrantiesProducts } from './warranty';
+import { Warranties, WarrantySearchParams, WarrantyProducts } from './warranty';
 
 export interface UseWarrantyErrors {
   search: Error | null;
@@ -7,9 +7,9 @@ export interface UseWarrantyErrors {
 
 export interface UseWarranty {
   warranties: ComputedProperty<Warranties>;
-  warrantiesProducts: ComputedProperty<WarrantiesProducts>;
+  warrantyProducts: ComputedProperty<WarrantyProducts>;
   search: (params: WarrantySearchParams) => Promise<void>;
   loading: ComputedProperty<boolean>;
   error: ComputedProperty<UseWarrantyErrors>;
-  setWarrantiesProducts(value: WarrantiesProducts): void;
+  setWarrantyProducts(value: WarrantyProducts): void;
 }
