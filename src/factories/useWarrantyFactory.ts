@@ -10,7 +10,8 @@ import {
   UseWarranty,
   UseWarrantyErrors,
   Warranties,
-  WarrantySearchParams
+  WarrantySearchParams,
+  WarrantiesProducts
 } from '../types';
 
 export interface UseWarrantyFactoryParams extends FactoryParams{
@@ -21,7 +22,10 @@ export function useWarrantyFactory(
   factoryParams: UseWarrantyFactoryParams,
 ) {
   return function useWarranty(ssrKey = ' useWarranty'): UseWarranty {
-    const warranties: Ref<Warranties> = sharedRef<Warranties>({}, `useWarranty-warranty-${ssrKey}`);
+    const warranties: Ref<Warranties> =
+      sharedRef<Warranties>({}, `useWarranty-warranty-${ssrKey}`);
+    const warrantiesProducts: Ref<WarrantiesProducts> =
+      sharedRef<WarrantiesProducts>({}, `${ssrKey}-warrantiesProducts`);
     const loading: Ref<boolean> = sharedRef<boolean>(false, `useWarranty-loading-${ssrKey}`);
     const error: Ref<UseWarrantyErrors> = sharedRef({
       search: null,
@@ -44,11 +48,16 @@ export function useWarrantyFactory(
       }
     };
 
+    const setWarrantiesProducts = (value: WarrantiesProducts) =>
+      (warrantiesProducts.value = value);
+
     return {
       warranties: computed(() => warranties.value),
+      warrantiesProducts: computed(() => warrantiesProducts.value),
       loading: computed(() => loading.value),
       error: computed(() => error.value),
       search,
+      setWarrantiesProducts,
     };
   };
 }

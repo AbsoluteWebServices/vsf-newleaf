@@ -7,6 +7,7 @@ export default async (
   const { apiUrl } = config;
   const { products = [] } = params;
   const warranties = {};
+  const requestPromises = [];
 
   for (const product of products) {
     const url = new URL(apiUrl);
@@ -15,20 +16,20 @@ export default async (
     url.searchParams.set('prod_desc', product.prodDesc);
     url.searchParams.set('prod_price', product.prodPrice);
 
-    try {
-      const response = await client.get(url.href);
-
-      if (response.status !== 200) {
-        throw response.data;
-      }
-
-      if (response.data) {
-        warranties[product.prodSku] = response.data;
-      }
-    } catch (err: any) {
-      throw err;
-    }
+    requestPromises.push(client.get(url.href));
   }
+
+  const responses = await Promise.all(requestPromises);
+
+  responses.forEach((response, index) => {
+    if (
+      response.status === 200 &&
+      response.data &&
+      products[index].prodSku
+    ) {
+      warranties[products[index].prodSku] = response.data;
+    }
+  });
 
   return warranties;
 }
