@@ -4,7 +4,7 @@ import { useWarrantyFactory, UseWarrantyFactoryParams } from '../factories/useWa
 
 const factoryParams: UseWarrantyFactoryParams = {
   search: async (context: Context, params: WarrantySearchParams): Promise<Warranties> => {
-    return context.$newleaf.api.getWarranty(params);
+    return context.$newleaf.getApi.getWarranty(params);
   },
 };
 
