@@ -1,4 +1,4 @@
-import { Context } from '@vue-storefront/core';
+import { Context } from '@absolute-web/vsf-core';
 import { Warranties, WarrantySearchParams } from '../types';
 import { useWarrantyFactory, UseWarrantyFactoryParams } from '../factories/useWarrantyFactory';
 

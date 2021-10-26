@@ -1,4 +1,4 @@
-import { ComputedProperty } from '@vue-storefront/core';
+import { ComputedProperty } from '@absolute-web/vsf-core';
 import { Warranties, WarrantySearchParams, WarrantyProducts } from './warranty';
 
 export interface UseWarrantyErrors {
