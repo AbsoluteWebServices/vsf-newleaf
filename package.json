@@ -1,6 +1,6 @@
 {
   "name": "@absolute-web/vsf-newleaf",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Newleaf Warranty module.",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
@@ -21,9 +21,7 @@
   "maintainers": [],
   "license": "MIT",
   "dependencies": {
-    "@absolute-web/vsf-core": "^0.0.1",
-    "ohmyfetch": "^0.3.1",
-    "vue-demi": "latest"
+    "ohmyfetch": "^0.3.1"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.0.0",
@@ -33,8 +31,9 @@
     "typescript": "^4.3.3"
   },
   "peerDependencies": {
-    "@vue/composition-api": "1.0.0-beta.21",
-    "vue": "^2.0.0 || >=3.0.0-rc.0"
+    "@absolute-web/vsf-core": "~0.0.1",
+    "vue": "^2.0.0 || >=3.0.0-rc.0",
+    "vue-demi": "latest"
   },
   "files": [
     "lib/**/*",
