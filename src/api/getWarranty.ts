@@ -7,27 +7,28 @@ export default async (
   const { apiUrl } = config;
   const { products = [] } = params;
   const warranties = {};
-  const requestPromises = [];
 
-  for (const product of products) {
-    const url = new URL(apiUrl);
+  const responses = await Promise.all(products.map(product => client.get(
+    apiUrl,
+    {
+      prod_sku: product.prodSku,
+      prod_desc: product.prodDesc,
+      prod_price: product.prodPrice,
+    },
+    {
+      headers: {
+        'Accept': 'application/json',
+      },
+      parseResponse: JSON.parse,
+    }
+  )));
 
-    url.searchParams.set('prod_sku', product.prodSku);
-    url.searchParams.set('prod_desc', product.prodDesc);
-    url.searchParams.set('prod_price', product.prodPrice);
-
-    requestPromises.push(client.get(url.href));
-  }
-
-  const responses = await Promise.all(requestPromises);
-
-  responses.forEach((response, index) => {
+  responses.forEach((data, index) => {
     if (
-      response.status === 200 &&
-      response.data &&
+      data &&
       products[index].prodSku
     ) {
-      warranties[products[index].prodSku] = response.data;
+      warranties[products[index].prodSku] = data;
     }
   });
 

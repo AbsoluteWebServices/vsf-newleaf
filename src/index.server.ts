@@ -17,11 +17,11 @@ const onCreate = (settings: Config): { config: Config; client: ClientInstance } 
 
   const client = {
     async get(url: string, params?: any, options?: any) {
-      const data = await $fetch(url, {
+      return $fetch(url, {
+        method: 'GET',
         ...options,
         params,
       });
-      return { data, status: 200 };
     }
   };
 
