@@ -1,5 +1,6 @@
 import { Ref, computed } from 'vue-demi';
 import {
+  ComposableFunctionArgs,
   configureFactoryParams,
   Context,
   FactoryParams,
@@ -15,7 +16,7 @@ import {
 } from '../types';
 
 export interface UseWarrantyFactoryParams extends FactoryParams{
-  search: (context: Context, params: WarrantySearchParams) => Promise<Warranties>;
+  search: (context: Context, params: ComposableFunctionArgs<WarrantySearchParams>) => Promise<Warranties>;
 }
 
 export function useWarrantyFactory(
@@ -33,7 +34,7 @@ export function useWarrantyFactory(
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
 
-    const search = async (params: WarrantySearchParams) => {
+    const search = async (params: ComposableFunctionArgs<WarrantySearchParams>) => {
       Logger.debug(`useWarranty/${ssrKey}/search`);
 
       try {

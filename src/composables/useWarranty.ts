@@ -1,10 +1,16 @@
-import { Context } from '@absolute-web/vsf-core';
+import { ComposableFunctionArgs, Context } from '@absolute-web/vsf-core';
 import { Warranties, WarrantySearchParams } from '../types';
 import { useWarrantyFactory, UseWarrantyFactoryParams } from '../factories/useWarrantyFactory';
 
 const factoryParams: UseWarrantyFactoryParams = {
-  search: async (context: Context, params: WarrantySearchParams): Promise<Warranties> => {
-    return context.$newleaf.getApi.getWarranty(params);
+  search: async (context: Context, params: ComposableFunctionArgs<WarrantySearchParams>): Promise<Warranties> => {
+    const {
+      signal,
+      ...searchParams
+    } = {
+      ...params
+    };
+    return context.$newleaf.getApi.getWarranty(searchParams, undefined, signal);
   },
 };
 
