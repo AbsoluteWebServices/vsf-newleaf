@@ -1,6 +1,6 @@
 import { $fetch } from 'ohmyfetch';
 import { apiClientFactory } from '@absolute-web/vsf-core';
-import * as api from './api';
+import * as getApi from './api';
 import { ClientInstance, Config } from './types';
 
 const onCreate = (settings: Config): { config: Config; client: ClientInstance } => {
@@ -33,7 +33,8 @@ const onCreate = (settings: Config): { config: Config; client: ClientInstance } 
 
 const { createApiClient } = apiClientFactory({
   onCreate,
-  api
+  api: {},
+  getApi
 });
 
 export {
